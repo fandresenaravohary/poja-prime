@@ -11,9 +11,12 @@ import com.company.base.repository.DummyRepository;
 import com.company.base.repository.DummyUuidRepository;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,5 +73,11 @@ public class HealthController {
 
     return ResponseEntity.of(
         Optional.of(bucketComponent.presign(bucketKey, Duration.ofMinutes(2)).toString()));
+  }
+
+  @GetMapping("/new-prime")
+  public BigInteger generatePrime(){
+    BigInteger prime = BigInteger.probablePrime(10000,new Random());
+    return prime;
   }
 }
